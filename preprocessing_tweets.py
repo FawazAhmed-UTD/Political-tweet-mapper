@@ -41,23 +41,35 @@ def lemmatize(tweet):
 
 
 def main():
-    with open('Twitter Political Corpus.txt', encoding='utf8') as file:
-        tweets = file.read()
-        tweets = tweets.split('\n')
+    # with open('Twitter Political Corpus.txt', encoding='utf8') as file:
+    #     tweets = file.read()
+    #     tweets = tweets.split('\n')
+    #
+    # with open('politicalTweets.csv', 'w', newline='') as file:
+    #     writer = csv.writer(file)
+    #     writer.writerow(['data', 'target'])
+    #     for tweet in tweets:
+    #         tweet = tweet.split('\t')
+    #         x = preprocess(tweet[1])
+    #         x = spellCheck(x)
+    #         x = lemmatize(x)
+    #         if tweet[0] == 'NOT':
+    #             y = 0
+    #         else:
+    #             y = 1
+    #         writer.writerow([x, y])
 
-    with open('politicalTweets.csv', 'w', newline='') as file:
+    with open('tweets.csv', 'r', newline='', encoding='utf8') as file:
+        tweets = [tweet[0] for tweet in csv.reader(file)]
+
+    with open('leftwingtweets.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['data', 'target'])
         for tweet in tweets:
-            tweet = tweet.split('\t')
-            x = preprocess(tweet[1])
+            x = preprocess(tweet)
             x = spellCheck(x)
             x = lemmatize(x)
-            if tweet[0] == 'NOT':
-                y = 0
-            else:
-                y = 1
-            writer.writerow([x, y])
+            writer.writerow([x])
 
 
 if __name__ == '__main__':
